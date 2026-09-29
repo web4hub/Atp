@@ -8,7 +8,18 @@ import pluginSimpleImportSort from "eslint-plugin-simple-import-sort"
 import vueLint from "eslint-plugin-vue"
 import globals from "globals"
 import tsLint from "typescript-eslint"
+// eslint.config.mjs
+import { includeIgnoreFile } from "@eslint/compat"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const ignorePath = path.resolve(__dirname, ".eslintignore")
+
+export default [
+    { /* ... your eslint config ...*/ },
+    includeIgnoreFile(ignorePath)
+]
 export default [
     // config parsers
     {
