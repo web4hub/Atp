@@ -1,0 +1,19 @@
+FROM ubuntu:latest # will warn due to "latest"
+
+WORKDIR /app
+
+# will fail due to "root"
+USER root
+
+# will fail due to usage of ADD instead of COPY
+ADD app /app
+
+COPY README.md /app/README.md
+RUN sudo apt-get update # will fail due to "sudo"
+
+# will fail due to curl/wget bashing
+RUN wget https://some-url.com | sh
+
+RUN apt-get update && apt-get install -y htop
+
+CMD ["/bin/bash", "/app/entrypoint.sh"]
